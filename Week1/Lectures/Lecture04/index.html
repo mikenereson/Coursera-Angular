@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myFirstApp">
+<head>
+  <meta charset="utf-8">
+  <title>My first AngularJS App</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main role="main" class="container">
+    <!--<div ng-controller="MyFirstController">
+      <div class="col-md-12 mt-5">
+        <label>Enter your first name</label>
+        <input type="text" class="form-control" ng-model="name" placeholder="" value="" required="">
+      </div>
+      <div class="col-md-12 mt-5">
+        <hr>
+        <p class="lead">{{sayHello()}}</p>
+      </div>
+    </div>-->
+
+    <div ng-controller="NameCalculatorController">
+      <div class="col-md-12 mt-5">
+        <label>Enter your first name</label>
+        <input type="text" class="form-control" ng-model="name" ng-change="recalculateNameValue();">
+      </div>
+      <div class="col-md-12 mt-5">
+        <p class="lead">Total numeric value of name is: <tt>{{nameValue}}</tt></p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted"><tt>..\coursera\angularjs\Week1\Lectures\Lecture04\index.html</tt></span>
+    </div>
+  </footer>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="angular.min.js"></script>
+<script src="app.js"></script>
+</html>
