@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html ng-app="myFirstApp">
 <head>
-  <meta charset="utf-8">
-  <title>My first AngularJS App</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <title>My first AngularJS App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <main role="main" class="container">
+<main role="main" class="container">
     <!--<div ng-controller="MyFirstController">
       <div class="col-md-12 mt-5">
         <label>Enter your first name</label>
@@ -21,21 +21,24 @@
     </div>-->
 
     <div ng-controller="NameCalculatorController">
-      <div class="col-md-12 mt-5">
-        <label>Enter your first name</label>
-        <input type="text" class="form-control" ng-model="name" ng-change="recalculateNameValue();">
-      </div>
-      <div class="col-md-12 mt-5">
-        <p class="lead">Total numeric value of name is: <tt>{{nameValue}}</tt></p>
-      </div>
+        <h1 class="mt-5">100 Point Words</h1>
+        <p>The aim of this game is to find 100 point words, where each letter is worth it's position
+            in the alphabet.</p>
+        <div class="col-md-12 mt-5">
+            <label>Enter a word <span class="text-muted ml-2">Hint: try Impossible</span></label>
+            <input type="text" class="form-control" ng-model="name" ng-change="recalculateNameValue();">
+        </div>
+        <div class="col-md-12 mt-5">
+            <p class="lead">Total numeric value of word is: <tt>{{nameValue}}</tt></p>
+        </div>
     </div>
-  </main>
+</main>
 
-  <footer class="footer">
+<footer class="footer">
     <div class="container">
-      <span class="text-muted"><tt>..\coursera\angularjs\Week1\Lectures\Lecture04\index.html</tt></span>
+        <span class="text-muted"><tt>..\coursera\angularjs\Week1\Lectures\Lecture04\index.html</tt></span>
     </div>
-  </footer>
+</footer>
 
 </body>
 

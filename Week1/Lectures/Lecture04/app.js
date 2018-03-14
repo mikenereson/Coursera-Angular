@@ -22,7 +22,7 @@
 
                 var value = 0;
                 for (var i = 0; i < string.length; i++) {
-                    value += string.charAt(i).toLowerCase().charCodeAt(0);
+                    value += string.charAt(i).toLowerCase().charCodeAt(0) - "a".charCodeAt(0) + 1;
                 }
                 return value;
             }
