@@ -7,15 +7,15 @@
                 return ($scope.name) ? "Hello " + $scope.name : "";
             };
         })
-        .controller("NameCalculatorController", function ($scope) {
-            $scope.name = "";
-            $scope.nameValue = 0;
+        .controller("WordCalculatorController", function ($scope) {
+            $scope.word = "";
+            $scope.wordValue = 0;
 
-            $scope.recalculateNameValue = function () {
-                $scope.nameValue = calculateNameValue($scope.name);
+            $scope.recalculateWordValue = function () {
+                $scope.wordValue = calculateWordValue($scope.word);
             };
 
-            function calculateNameValue(string) {
+            function calculateWordValue(string) {
                 if (!string) {
                     return 0;
                 }

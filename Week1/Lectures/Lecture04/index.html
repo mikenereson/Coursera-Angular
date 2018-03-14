@@ -20,16 +20,19 @@
       </div>
     </div>-->
 
-    <div ng-controller="NameCalculatorController">
-        <h1 class="mt-5">100 Point Words</h1>
-        <p>The aim of this game is to find 100 point words, where each letter is worth it's position
-            in the alphabet.</p>
-        <div class="col-md-12 mt-5">
-            <label>Enter a word <span class="text-muted ml-2">Hint: try excellent</span></label>
-            <input type="text" class="form-control" ng-model="name" ng-change="recalculateNameValue();">
+    <div ng-controller="WordCalculatorController">
+        <div class="col-md-12">
+            <h1 class="mt-5">100 Point Words</h1>
+            <p>The aim of this game is to find 100 point words, where each letter is worth it's position
+                in the alphabet.</p>
+            <p class="text-muted">Try: <tt>Excellent</tt> or <tt>Grumpy</tt></p>
         </div>
         <div class="col-md-12 mt-5">
-            <p class="lead">Total numeric value of word is: <tt>{{nameValue}}</tt></p>
+            <label>Enter a word </label>
+            <input type="text" class="form-control" ng-model="word" ng-change="recalculateWordValue();">
+        </div>
+        <div class="col-md-12 mt-5">
+            <p class="lead">Total numeric value of word is: <tt>{{wordValue}}</tt></p>
         </div>
     </div>
 </main>
