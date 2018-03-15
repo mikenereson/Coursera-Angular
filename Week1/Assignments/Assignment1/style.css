@@ -1,0 +1,19 @@
+/* page layout */
+html{position:relative;min-height:100%;}
+body{margin-bottom:60px;}
+.footer{position:absolute;bottom:0;width:100%;height:60px;line-height:60px;background-color:#f5f5f5;}
+.container{width:auto;max-width:680px;padding:0 15px;}
+
+/* formatting */
+p.ok{color:#28a745;}
+p.not-ok{color:#dc3545;}
+
+p.ok:before { content: "\2713  "; }         /* checkmark */
+p.not-ok:before { content: "\2715  "; }     /* x mark */
+
+input.ok{border-coalor:#28a745;}
+input.not-ok{border-color:#dc3545;}
+
+img {transition: border-width 0.2s linear, padding 0.2s linear;}
+img.ok{padding: 1px; border:solid #28a745 1px;}
+img.not-ok{padding: 1px; border:solid #dc3545 1px;}

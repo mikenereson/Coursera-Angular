@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="lunchCheck">
+<head>
+  <meta charset="utf-8">
+  <title>Assignment 1</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main role="main" class="container">
+    <div ng-controller="LunchCheckController">
+      <form class="col-md-6 mb-3 mt-5"> <!-- used a form for enter key to submit -->
+
+        <div class="text-center mb-3">
+          <img class="rounded-circle thumbnail" ng-class="state" src="https://goo.gl/j2ZutK" width="48" height="48">
+        </div>
+
+        <label>What did you have for lunch?</label>
+        <input type="text" class="form-control" ng-model="lunch" placeholder="" ng-class="state">
+        <small class="text-muted">Enter a comma-delimited list of items. Each item should contain text.</small>
+
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-block" type="submit" ng-click="update();">Check If Too Much</button>
+        <p class="feedback mt-4 text-center" ng-class="state">{{message}}</p>
+      </form>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted"><tt>.\Coursera-Angular\Week1\Assignments\Assignment1\index.html</tt></span>
+    </div>
+  </footer>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="angular.min.js"></script>
+<script src="app.js"></script>
+</html>
