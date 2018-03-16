@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="BlogApp">
+<head>
+  <meta charset="utf-8">
+  <title>My first AngularJS App</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main role="main" class="container">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <h1 style="font-weight: 100;">Better Blog Name</h1>
+        <p class="text-muted small"><a href="#">thedomain.com</a></p>
+        <p class="text-muted small">About you, a little bit.</p>
+        <br>
+
+      </div>
+
+
+      <div class="col-sm-4" ng-controller="PostListController as listCtrl">
+        <h5 class="mb-5" style="font-weight: 900;">Posts</h5>
+
+        <ul style="list-style:none; margin:0; padding:0;">
+          <li ng-repeat="post in listCtrl.posts" class="mb-3">
+            <p class="m-0 p-0"><a href="#" ng-click="listCtrl.loadPost($index);">{{post.title}}</a></p>
+            <p class="m-0 p-0 text-muted small">{{post.published}}</p>
+          </li>
+        </ul>
+
+      </div>
+      <div class="col-sm-8 bg-none" ng-controller="PostShowController as showCtrl">
+        <h5 class="mb-0 pb-0" style="font-weight: 900;">{{showCtrl.post.title}}</h5>
+        <p class="text-muted smaller mt-0 pt-0">{{showCtrl.post.published}}</p>
+
+        <div class="progress mb-3" style="height: 1px;">
+          <div class="progress-bar" style="width: {{showCtrl.progress.value}}%;"></div>
+        </div>
+
+        <div class="body" ng-bind-html="showCtrl.post.htmlBody | trusted">
+          <!-- body injected by ng-bind-html-->
+        </div>
+
+        <!--<button class="btn btn-link" ng-click="showCtrl.refetch();">Refresh</button>-->
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <span class="text-muted"><a href="https://github.com/mikenereson/Coursera-Angular/tree/master/Week2/Lectures/Lecture20"><tt> .\Coursera-Angular\Week2\Lectures\Lecture20</tt></a></span>
+    </div>
+  </footer>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<script src="angular.min.js"></script>
+<script src="app.js"></script>
+</html>
