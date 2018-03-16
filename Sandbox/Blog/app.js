@@ -1,8 +1,8 @@
 (function () {
     "use strict";
     angular.module("BlogApp", [])
+        .controller("BlogController", BlogController)
         .controller("PostListController", PostListController)
-        .controller("PostShowController", PostShowController)
         .service("PostService", PostService)
         .filter('trusted',
             function ($sce) {
@@ -13,54 +13,67 @@
         );
 
 
-    PostListController.$inject = ["$scope", "PostService"];
+    BlogController.$inject = ["$scope", "$timeout", "PostService"];
 
-    function PostListController($scope, PostService) {
-        var listCtrl = this;
-        listCtrl.posts = PostService.getPosts();
+    function BlogController($scope, $timeout, PostService) {
+        var blogCtrl = $scope;
+        blogCtrl.currentPost = {
+            title: "default",
+            published: "unknown",
+            htmlBody: "loading"
+        };
 
-        listCtrl.loadPost = function (index) {
-            PostService.loadPost(index);
+        // init
+        PostService.loadPosts();
+        $timeout(function () {
+            blogCtrl.loadPost();
+        }, 250);
+
+        blogCtrl.loadPost = function (index) {
+            blogCtrl.currentPost = PostService.loadPost(index);
+            //location.hash += "/" + blogCtrl.currentPost.slug;
         };
     }
 
-    PostShowController.$inject = ["$interval", "PostService"];
+    PostListController.$inject = ["$scope", "$timeout", "PostService"];
 
-    function PostShowController($interval, PostService) {
-        var showCtrl = this;
-        showCtrl.post = PostService.loadPost(0); // init, load up the first post;
-        showCtrl.progress = {value: 0};
+    function PostListController($scope, $timeout, PostService) {
+        var listCtrl = this;
+        listCtrl.posts = [];
 
-        /* HOW do I get showCtrl.post to update after PostService.loadPost is called? */
-        $interval(function () {
-            //showCtrl.progress.value = 100;
-            showCtrl.post = PostService.getCurrentPost();
-            // $interval(function(){
-            //     showCtrl.progress.value = 0;
-            // }, 500, 1);
+        listCtrl.loadPost = function (index) {
+            $scope.$parent.loadPost(index);
+        };
 
-        }, 1000)
+        $timeout(function () {
+            listCtrl.posts = PostService.getPosts();
+        }, 100);
     }
 
-    function PostService() {
 
-        var ajax = new XMLHttpRequest();
-        ajax.onreadystatechange = onAjaxRecieved;
+    PostService.$inject = ["$http"];
+
+    function PostService($http) {
 
         var service = this;
+
+        // List of blog posts
+        var posts = [];
 
         // template
         var currentPost = {
             "title": "",
+            "slug": "",
             "published": "",
             "htmlBody": ""
         };
 
-        // List of blog posts
-        var posts = [];
-        posts.push({"title": "Pi ^ 96", "published": "Feb-16-2018", "file": "posts/1.html"});
-        posts.push({"title": "2nd Post", "published": "Feb-16-2018", "file": "posts/2.html"});
-        posts.push({"title": "Chicken Dinner!", "published": "Feb-16-2018", "file": "posts/3.html"});
+        service.loadPosts = function () {
+            $http.get(getUrl("posts/posts.json"))
+                .then(function (response) {
+                    posts = response.data;
+                });
+        };
 
         service.getPosts = function () {
             return posts;
@@ -69,25 +82,40 @@
         service.loadPost = function (index) {
             index = index || 0;
             var post = service.getPosts()[index];
+            post.slug =
+                "/" + (index || 0) +
+                "/" + slugify(post.published) +
+                "/" + slugify(post.title);
+            service.fetchPostBody(post);
+            return post;
+        };
 
-            currentPost = {
-                "title": post.title,
-                "published": post.published,
-                "htmlBody": "&ndash;&ndash; &nbsp; reading &nbsp; &ndash;&ndash;"
-            };
+        service.fetchPostBody = function (post) {
 
-            ajax.open("GET", (location.href.substr(0, location.href.lastIndexOf("/")) + "/" + post.file), true);
-            ajax.send();
+            post.htmlBody = post.htmlBody || "";
+            $http.get(getUrl(post.file))
+                .then(function (response) {
+                    post.htmlBody = response.data;
+                });
         };
 
         service.getCurrentPost = function () {
             return currentPost;
         };
 
-        function onAjaxRecieved() {
-            if (ajax.status == 200 && ajax.readyState == 4) {
-                currentPost.htmlBody = ajax.responseText;
-            }
+        function getUrl(path) {
+            var baseUrl = location.href.substr(0, location.href.lastIndexOf("/")) + "/";
+            if (!path) return baseUrl;
+            return baseUrl + path;
+        }
+
+        function slugify(text) {
+            return text.toString().toLowerCase()
+                .replace(/\s+/g, '-')           // Replace spaces with -
+                .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+                .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+                .replace(/^-+/, '')             // Trim - from start of text
+                .replace(/-+$/, '');            // Trim - from end of text
         }
     }
 })();

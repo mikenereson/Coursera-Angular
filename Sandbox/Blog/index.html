@@ -8,17 +8,15 @@
 </head>
 <body>
 
-  <main role="main" class="container">
+  <main role="main" class="container" ng-controller="BlogController as blogCtrl">
 
     <div class="row">
       <div class="col-sm-12">
         <h1 style="font-weight: 100;">Better Blog Name</h1>
-        <p class="text-muted small"><a href="#">thedomain.com</a></p>
+        <p class="text-muted small"><a href="http://blog.soawesam.com">blog.soawesam.com</a></p>
         <p class="text-muted small">About you, a little bit.</p>
         <br>
-
       </div>
-
 
       <div class="col-sm-4" ng-controller="PostListController as listCtrl">
         <h5 class="mb-5" style="font-weight: 900;">Posts</h5>
@@ -31,15 +29,15 @@
         </ul>
 
       </div>
-      <div class="col-sm-8 bg-none" ng-controller="PostShowController as showCtrl">
-        <h5 class="mb-0 pb-0" style="font-weight: 900;">{{showCtrl.post.title}}</h5>
-        <p class="text-muted smaller mt-0 pt-0">{{showCtrl.post.published}}</p>
+      <div class="col-sm-8 bg-none" >
+        <h5 class="mb-0 pb-0" style="font-weight: 900;">{{currentPost.title}}</h5>
+        <p class="text-muted smaller mt-0 pt-0">{{currentPost.published}}</p>
 
         <div class="progress mb-3" style="height: 1px;">
-          <div class="progress-bar" style="width: {{showCtrl.progress.value}}%;"></div>
+          <div class="progress-bar" style="width: 0%;"></div>
         </div>
 
-        <div class="body" ng-bind-html="showCtrl.post.htmlBody | trusted">
+        <div class="body" ng-bind-html="currentPost.htmlBody | trusted">
           <!-- body injected by ng-bind-html-->
         </div>
 
