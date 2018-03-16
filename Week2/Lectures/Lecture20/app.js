@@ -6,20 +6,46 @@
         .service("ShoppingListService", ShoppingListService);
 
 
-    ShoppingListAddController.$inject = ["ShoppingListService"];
+    ShoppingListAddController.$inject = ["$scope", "ShoppingListService"];
 
-    function ShoppingListAddController(ShoppingListService) {
+    function ShoppingListAddController($scope, ShoppingListService) {
         var addCtrl = this;
 
+        /* holds the entered values */
         addCtrl.label = "";
         addCtrl.quantity = "";
 
+        /* add classes to the inputs, valid values are `` and `error` */
+        addCtrl.labelState = "";
+        addCtrl.quantityState = "";
+
+        addCtrl.isValid = function () {
+            addCtrl.clearState();
+            /* label must have a value */
+            if (!addCtrl.label.length) addCtrl.labelState = "error";
+            /* quantity must have a numeric value > 0222 */
+            if (!addCtrl.quantity.length || isNaN(addCtrl.quantity) || addCtrl.quantity == 0) addCtrl.quantityState = "error";
+            /* return true if no states are in error */
+            return !addCtrl.labelState && !addCtrl.quantityState;
+        };
+
         addCtrl.addItem = function () {
-            /*console.info("addCtrl.addItem", addCtrl);*/
+            if (!addCtrl.isValid()) {
+                return;
+            }
+
             ShoppingListService.addItem(addCtrl.label, addCtrl.quantity);
+            addCtrl.clear();
+        };
+
+        addCtrl.clear = function () {
             addCtrl.label = "";
             addCtrl.quantity = "";
         };
+        addCtrl.clearState = function () {
+            addCtrl.labelState = "";
+            addCtrl.quantityState = "";
+        }
     }
 
     ShoppingListShowController.$inject = ["ShoppingListService"];
@@ -43,14 +69,14 @@
         var service = this;
 
         // List of shopping items
-
         var items = [];
-        items.push({label: 'first', quantity: 1});
+
+
+        // Add an item to get us started
+        // items.push({label: 'first', quantity: 1});
 
         service.addItem = function (label, quantity) {
-            /*console.debug("ShoppingListService.addItem", label + ' x' + quantity);*/
             items.push({label: label, quantity: quantity});
-            /*console.debug("ShoppingListService.items", items);*/
         };
 
         service.removeItem = function (index) {
@@ -58,7 +84,6 @@
         };
 
         service.getItems = function () {
-            console.info("entered >> ShoppingListService.getItems");
             return items;
         };
     }

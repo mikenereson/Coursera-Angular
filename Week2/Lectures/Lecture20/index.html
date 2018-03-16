@@ -20,30 +20,38 @@
       <div class="col-sm" ng-controller="ShoppingListAddController as addCtrl">
         <h5 class="mb-5" style="font-weight: 900;">&#x2795; Add Items</h5>
 
-        <label>What do you want to buy?</label>
-        <input type="text" class="form-control form-control-lg" ng-model="addCtrl.label" placeholder="addCtrl.label">
-        <!--<small class="text-muted">Enter a comma-delimited list of items. Each item should contain text.</small>-->
+        <form>
+          <label>What do you want to buy?</label>
+          <input type="text" class="form-control form-control-lg" ng-model="addCtrl.label" placeholder="Item Name" autofocus="autofocus" ng-class="addCtrl.labelState">
+          <!--<small class="text-muted">Enter a comma-delimited list of items. Each item should contain text.</small>-->
 
-        <br>
+          <br>
 
-        <label>How many?</label>
-        <input type="text" class="form-control form-control-sm" ng-model="addCtrl.quantity" placeholder="addCtrl.quantity">
-        <!--<small class="text-muted">Enter a comma-delimited list of items. Each item should contain text.</small>-->
+          <label>How many?</label>
+          <input type="text" class="form-control form-control-sm" ng-model="addCtrl.quantity" placeholder="Quantity" ng-class="addCtrl.quantityState">
+          <!--<small class="text-muted">Enter a comma-delimited list of items. Each item should contain text.</small>-->
 
-        <br>
-        <button class="btn btn-primary float-right" type="submit" ng-click="addCtrl.addItem();">&#x2795; Add Item</button>
+          <br>
+
+          <button class="btn btn-light btn-sm float-left" ng-click="addCtrl.clear();">clear</button>
+          <button class="btn btn-primary float-right" type="submit" ng-click="addCtrl.addItem();">&#x2795; Add Item</button>
+        </form>
       </div>
       <div class="col-sm printable bg-none" ng-controller="ShoppingListShowController as showCtrl">
         <h5 class="mb-5" style="font-weight: 900;">&#x2338; List Items
 
-        <button class="btn btn-link btn-sm float-right" ng-click="showCtrl.sendToPrinter();">
-          <svg style="width:20px;height:20px" viewBox="0 0 30 10">
-            <path fill="#BBBBBB" d="M18,3H6V7H18M19,12A1,1 0 0,1 18,11A1,1 0 0,1 19,10A1,1 0 0,1 20,11A1,1 0 0,1 19,12M16,19H8V14H16M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8Z" />
-          </svg> Print</button>
+          <button class="btn btn-link btn-sm float-right" ng-click="showCtrl.sendToPrinter();">
+            <svg style="width:20px;height:20px" viewBox="0 0 30 10">
+              <path fill="#BBBBBB" d="M18,3H6V7H18M19,12A1,1 0 0,1 18,11A1,1 0 0,1 19,10A1,1 0 0,1 20,11A1,1 0 0,1 19,12M16,19H8V14H16M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8Z"/>
+            </svg>
+            Print
+          </button>
 
         </h5>
 
-        <p ng-if="showCtrl.items.length == 0" class="text-center">No Items. <br><small class="no-print">&larr; Add an Item</small></p>
+        <p ng-if="showCtrl.items.length == 0" class="text-center">No Items. <br>
+          <small class="no-print">&larr; Add an Item</small>
+        </p>
 
         <ul style="list-style: none; padding-left: 0;">
           <li ng-repeat="item in showCtrl.items">

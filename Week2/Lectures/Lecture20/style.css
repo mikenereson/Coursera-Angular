@@ -7,7 +7,10 @@ body{margin-bottom:60px;}
 div[ng-controller] {background: #fafafa; border-radius: 14px; padding: 24px; box-shadow: 2px 2px 8px #ddd}
 div[ng-controller].bg-none {background: transparent; box-shadow: none;}
 ul { min-height: 100px;}
+input::placeholder { color: #ddd !important; font-weight: 400;}
 .btn-link:hover {text-decoration: none;}
+
+input.error { border-color: red}
 
 @media print {
     div,.printable .no-print { display: none;}
