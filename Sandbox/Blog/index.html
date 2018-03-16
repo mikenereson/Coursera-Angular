@@ -21,7 +21,7 @@
       <div class="col-sm-4" ng-controller="PostListController as listCtrl">
         <h5 class="mb-5" style="font-weight: 900;">Posts</h5>
 
-        <ul style="list-style:none; margin:0; padding:0;">
+        <ul class="posts-list" style="list-style:none; margin:0; padding:0;">
           <li ng-repeat="post in listCtrl.posts" class="mb-3">
             <p class="m-0 p-0"><a href="#" ng-click="listCtrl.loadPost($index);">{{post.title}}</a></p>
             <p class="m-0 p-0 text-muted small">{{post.published}}</p>

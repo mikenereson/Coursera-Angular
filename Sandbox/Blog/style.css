@@ -6,6 +6,7 @@ body{margin-bottom:60px;}
 
 div[ng-controller] { height: fit-content; background: #fdfdfd; border-radius: 14px; padding: 24px; box-shadow: 1px 1px 12px #eee}
 div[ng-controller].bg-none {background: transparent; box-shadow: none;}
-ul { max-height: 300px; overflow-y: auto;}
+ul.posts-list { max-height: 300px; overflow-y: auto;}
+ul.posts-list li a { overflow-x: hidden; white-space: pre; text-overflow: ellipsis; width: 99%; display: inline-block;}
 .btn-link:hover {text-decoration: none;}
 
