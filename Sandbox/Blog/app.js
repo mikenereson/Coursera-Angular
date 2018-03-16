@@ -56,7 +56,7 @@
             "htmlBody": ""
         };
 
-        // List of shopping items
+        // List of blog posts
         var posts = [];
         posts.push({"title": "Pi ^ 96", "published": "Feb-16-2018", "file": "posts/1.html"});
         posts.push({"title": "2nd Post", "published": "Feb-16-2018", "file": "posts/2.html"});
@@ -73,7 +73,7 @@
             currentPost = {
                 "title": post.title,
                 "published": post.published,
-                "htmlBody": "-- reading --"
+                "htmlBody": "&ndash;&ndash; &nbsp; reading &nbsp; &ndash;&ndash;"
             };
 
             ajax.open("GET", (location.href.substr(0, location.href.lastIndexOf("/")) + "/" + post.file), true);
