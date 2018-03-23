@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html ng-app="ShoppingListApp">
+<head>
+    <meta charset="utf-8">
+    <title>My first AngularJS App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main role="main" class="container">
+
+    <div class="row printable">
+        <div class="col-sm-12">
+            <h1 style="font-weight: 100;">Shopping List</h1>
+            <p class="text-muted small">Add and remove items from your shopping list. Mark purchased items as completed. This data is not saved between
+                page loads.</p>
+            <p class="text-muted small">This app uses multiple, unrelated controllers and leverages <tt>$on</tt> and <tt>$broadcast</tt> to sync state with a Service.</p>
+            <hr>
+        </div>
+
+        <div class="col-sm" ng-controller="ShoppingListAddController as addCtrl">
+            <h5 class="mb-5" style="font-weight: 900;">&plus; Add Items</h5>
+
+            <form>
+                <label>What do you want to buy?</label>
+                <input type="text" class="form-control form-control-lg" ng-model="addCtrl.label" placeholder="Item Name"
+                       autofocus="autofocus" ng-class="addCtrl.labelState">
+                <!--<small class="text-muted">Enter a comma-delimited list of items. Each item should contain text.</small>-->
+
+                <br>
+
+                <label>How many?</label>
+                <input type="text" class="form-control form-control-sm" ng-model="addCtrl.quantity"
+                       placeholder="Quantity" ng-class="addCtrl.quantityState">
+                <!--<small class="text-muted">Enter a comma-delimited list of items. Each item should contain text.</small>-->
+
+                <br>
+
+                <button class="btn btn-light btn-sm float-left" ng-click="addCtrl.clear();">clear</button>
+                <button class="btn btn-primary float-right" type="submit" ng-click="addCtrl.addItem();">&plus; Add
+                    Item
+                </button>
+            </form>
+        </div>
+        <div class="col-sm printable bg-none" ng-controller="ShoppingListShowController as showCtrl">
+            <h5 class="mb-5" style="font-weight: 900;">&#x2338; List Items
+
+                <button class="btn btn-link btn-sm float-right" ng-click="showCtrl.sendToPrinter();">
+                    <svg style="width:20px;height:20px" viewBox="0 0 30 10">
+                        <path fill="#BBBBBB"
+                              d="M18,3H6V7H18M19,12A1,1 0 0,1 18,11A1,1 0 0,1 19,10A1,1 0 0,1 20,11A1,1 0 0,1 19,12M16,19H8V14H16M19,8H5A3,3 0 0,0 2,11V17H6V21H18V17H22V11A3,3 0 0,0 19,8Z"/>
+                    </svg>
+                    Print
+                </button>
+
+            </h5>
+
+            <p ng-if="showCtrl.unpurchasedItems.length == 0" class="text-center">No Items <br>
+                <small class="no-print">&larr; Add an Item</small>
+            </p>
+
+            <ul style="list-style: none; padding-left: 0;">
+                <li ng-repeat="item in showCtrl.items" ng-hide="item.purchased">
+                    <button class="btn btn-link btn-sm" ng-click="showCtrl.removeItem($index);"
+                            title="Remove from List">&#x2715;</button>
+                    <span>{{item.label}}</span>&nbsp;
+                    <small class="text-muted">&times;{{item.quantity}}</small>
+                    <button class="btn btn-link btn-sm purchase" style="float:right;"
+                            title="Mark as Purchased"
+                            ng-click="showCtrl.togglePurchased($index, true);">&check;
+                    </button>
+
+                </li>
+            </ul>
+
+            <div ng-if="showCtrl.purchasedItems.length" class="printable">
+                <h7 class="mb-1" style="font-weight: 900;">&#x2338; Purchased Items</h7>
+
+                <ul style="list-style: none; padding-left: 0;">
+                    <li ng-repeat="item in showCtrl.purchasedItems">
+                        <span>{{item.label}}</span>&nbsp;
+                        <small class="text-muted">&times;{{item.quantity}}</small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted"><a
+                href="https://www.coursera.org/learn/single-page-web-apps-with-angularjs/peer/jGqyp/module-2-assignment">Assignment 2</a></span>
+        -
+        <span class="text-muted"><a
+                href="https://github.com/mikenereson/Coursera-Angular/tree/master/Week2/Assignments/Assignment2"><tt> .\Coursera-Angular\Week2\Assignments\Assignment2</tt></a></span>
+    </div>
+</footer>
+
+</body>
+
+<script src="//code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+<script src="angular.min.js"></script>
+<script src="app.js"></script>
+</html>
